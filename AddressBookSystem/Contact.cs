@@ -80,8 +80,9 @@ namespace AddressBookSystem
         {
             return email;
         }
+        // Method to add a contact in address book
         public void Add_Contact(List<Contact> lis)
-        { 
+        {
             Contact P1 = new Contact();
             Console.WriteLine("Enter First Name: ");
             P1.setFirstName(Console.ReadLine());
@@ -99,7 +100,65 @@ namespace AddressBookSystem
             P1.setEmail(Console.ReadLine());
             lis.Add(P1);
         }
-        public void DisplayContacts(List<Contact> lis) {
+        // Method to find a contact in address book
+        private Contact FindContact(List<Contact> lis, string firstName, string lastName)
+        {
+            return lis.Find(contact =>
+                contact.firstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
+                contact.lastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+        }
+        // Method to edit a contact in address book
+        public bool EditContact(List<Contact> lis, string firstName, string lastName)
+        {
+            Contact contact = FindContact(lis, firstName, lastName);
+            if (contact != null)
+            {
+                Console.WriteLine("Enter new details for the contact:");
+
+                Console.Write("Enter First Name: ");
+                string newFirstName = Console.ReadLine();
+
+                Console.Write("Enter Last Name: ");
+                string newLastName = Console.ReadLine();
+
+                Console.Write("Enter Address: ");
+                string newAddress = Console.ReadLine();
+
+                Console.Write("Enter City: ");
+                string newCity = Console.ReadLine();
+
+                Console.Write("Enter State: ");
+                string newState = Console.ReadLine();
+
+                Console.Write("Enter Zip: ");
+                string newZip = Console.ReadLine();
+
+                Console.Write("Enter Phone Number: ");
+                string newPhoneNumber = Console.ReadLine();
+
+                Console.Write("Enter Email: ");
+                string newEmail = Console.ReadLine();
+
+                contact.firstName = newFirstName;
+                contact.lastName = newLastName;
+                contact.city = newCity;
+                contact.state = newState;
+                contact.zip = newZip;
+                contact.phoneNumber = newPhoneNumber;
+                contact.email = newEmail;
+
+                Console.WriteLine("Contact updated successfully.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Contact not found.");
+                return false;
+            }
+        }
+        // Method to display the list 
+        public void DisplayContacts(List<Contact> lis)
+        {
 
             Console.WriteLine("Contacts in Address Book:");
             foreach (Contact contact in lis)
@@ -112,7 +171,6 @@ namespace AddressBookSystem
                 Console.WriteLine("Email: {0}", contact.email);
                 Console.WriteLine();
             }
-        }       
-
+        }
     }
 }
