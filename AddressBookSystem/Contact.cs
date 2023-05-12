@@ -156,6 +156,23 @@ namespace AddressBookSystem
                 return false;
             }
         }
+        // Method to delete the contact from Address Book
+        public bool DeleteContact(List<Contact> lis, string firstName, string lastName)
+        {
+            Contact contact = FindContact(lis,firstName, lastName);
+            if (contact != null)
+            {
+                lis.Remove(contact);
+                Console.WriteLine("Contact deleted successfully.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Contact not found.");
+                return false;
+            }
+        }
+
         // Method to display the list 
         public void DisplayContacts(List<Contact> lis)
         {
