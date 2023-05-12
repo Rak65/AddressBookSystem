@@ -99,7 +99,7 @@ namespace AddressBookSystem
             Console.WriteLine("Enter Email ID : ");
             P1.setEmail(Console.ReadLine());
             lis.Add(P1);
-        }
+        }/*
         // Method to find a contact in address book
         private Contact FindContact(List<Contact> lis, string firstName, string lastName)
         {
@@ -172,7 +172,7 @@ namespace AddressBookSystem
                 return false;
             }
         }
-
+        */
         // Method to display the list 
         public void DisplayContacts(List<Contact> lis)
         {

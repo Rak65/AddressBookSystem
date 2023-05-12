@@ -22,8 +22,8 @@ namespace AddressBookSystem
                 Console.WriteLine("Choose your option :");
                 Console.WriteLine("1.Add Contact");
                 Console.WriteLine("2.Display all Contact.");
-                Console.WriteLine("3.Edit Contact.");
-                Console.WriteLine("4.Delete Contact.");
+                //Console.WriteLine("3.Edit Contact.");
+                //Console.WriteLine("4.Delete Contact.");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
@@ -34,7 +34,7 @@ namespace AddressBookSystem
                     case 2:
                         contact.DisplayContacts(lis);
                         break;
-                    case 3:
+                    /*case 3:
                         Console.WriteLine("Enter your first name");
                         string firstName= Console.ReadLine();
                         Console.WriteLine("Enter your last name");
@@ -47,7 +47,7 @@ namespace AddressBookSystem
                         Console.WriteLine("Enter your last name");
                         string lastN = Console.ReadLine();
                         contact.DeleteContact (lis,firstN,lastN);
-                        break;
+                        break;*/
                     default:
                         Console.WriteLine("Enter valid option :");
                         break;
