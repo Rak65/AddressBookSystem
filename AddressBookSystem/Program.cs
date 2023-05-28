@@ -26,6 +26,8 @@ namespace AddressBookSystem
                 Console.WriteLine("6. Display Contacts");
                 Console.WriteLine("7. Search Person in City");
                 Console.WriteLine("8. Search Person in State");
+                Console.WriteLine("9. View Persons by City");
+                Console.WriteLine("10. View Persons by State");
                 Console.WriteLine("0. Exit");
 
                 Console.Write("Enter your choice: ");
@@ -92,8 +94,17 @@ namespace AddressBookSystem
                         string searchState = Console.ReadLine();
                         addressBookSystem.SearchPersonByState(searchState);
                         break;
+                    case "9":
+                        Console.Write("Enter the city to view persons: ");
+                        string viewCity = Console.ReadLine();
+                        addressBookSystem.ViewPersonsByCity(viewCity);
+                        break;
+                    case "10":
+                        Console.Write("Enter the state to view persons: ");
+                        string viewState = Console.ReadLine();
+                        addressBookSystem.ViewPersonsByState(viewState);
+                        break;
                     case "0":
-                        Console.WriteLine("Exiting the program...");
                         return;
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
@@ -104,4 +115,5 @@ namespace AddressBookSystem
             }
         }
     }
+
 }
