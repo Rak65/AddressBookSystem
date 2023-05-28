@@ -167,5 +167,54 @@ namespace AddressBookSystem
                 Console.WriteLine($"No persons found in the state of {state}.");
             }
         }
+        public void GetCountByCity()
+        {
+            if (selectedAddressBook != null)
+            {
+                var countByCity = selectedAddressBook.GetCountByCity();
+
+                if (countByCity.Count > 0)
+                {
+                    Console.WriteLine("Number of contact persons by city:");
+                    foreach (var kvp in countByCity)
+                    {
+                        Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No contact persons found in any city.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No address book selected. Please select an address book first.");
+            }
+        }
+
+        public void GetCountByState()
+        {
+            if (selectedAddressBook != null)
+            {
+                var countByState = selectedAddressBook.GetCountByState();
+
+                if (countByState.Count > 0)
+                {
+                    Console.WriteLine("Number of contact persons by state:");
+                    foreach (var kvp in countByState)
+                    {
+                        Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No contact persons found in any state.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No address book selected. Please select an address book first.");
+            }
+        }
     }
 }

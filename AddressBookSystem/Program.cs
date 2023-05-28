@@ -110,6 +110,10 @@ namespace AddressBookSystem
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
+                addressBookSystem.GetCountByCity();
+                Console.WriteLine();
+
+                addressBookSystem.GetCountByState();
 
                 Console.WriteLine();
             }
