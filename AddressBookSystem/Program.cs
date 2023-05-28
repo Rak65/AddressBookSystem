@@ -10,170 +10,87 @@ using System.Threading.Tasks;
 
 namespace AddressBookSystem
 {
-    class AddressBookSystem
+    class Program
     {
-        // Dictionary to hold multiple address books
-        private Dictionary<string, List<Contact>> addressBooks;
-
-        // Constructor to initialize the dictionary
-        public AddressBookSystem()
+        static void Main(string[] args)
         {
-            addressBooks = new Dictionary<string, List<Contact>>();
-        }
+            AddressBookSystem addressBookSystem = new AddressBookSystem();
 
-        // Method to add a contact to an address book
-        public void AddContact(string addressBookName, Contact contact)
-        {
-            // If the address book doesn't exist, create it
-            if (!addressBooks.ContainsKey(addressBookName))
+            while (true)
             {
-                addressBooks[addressBookName] = new List<Contact>();
-            }
+                Console.WriteLine("1. Create Address Book");
+                Console.WriteLine("2. Select Address Book");
+                Console.WriteLine("3. Add Contact");
+                Console.WriteLine("4. Edit Contact");
+                Console.WriteLine("5. Delete Contact");
+                Console.WriteLine("6. Display Contacts");
+                Console.WriteLine("0. Exit");
 
-            // Add the contact to the address book
-            addressBooks[addressBookName].Add(contact);
-        }
+                Console.Write("Enter your choice: ");
+                string choice = Console.ReadLine();
 
-        // Method to display all contacts in an address book
-        public void DisplayContacts(string addressBookName)
-        {
-            // If the address book doesn't exist, display an error message
-            if (!addressBooks.ContainsKey(addressBookName))
-            {
-                Console.WriteLine("Address book not found.");
-                return;
-            }
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Enter the name of the address book: ");
+                        string addressBookName = Console.ReadLine();
+                        addressBookSystem.CreateAddressBook(addressBookName);
+                        break;
+                    case "2":
+                        Console.Write("Enter the name of the address book: ");
+                        addressBookName = Console.ReadLine();
+                        addressBookSystem.SelectAddressBook(addressBookName);
+                        break;
+                    case "3":
+                        Console.Write("Enter the first name: ");
+                        string firstName = Console.ReadLine();
+                        Console.Write("Enter the last name: ");
+                        string lastName = Console.ReadLine();
+                        Console.Write("Enter the address: ");
+                        string address = Console.ReadLine();
+                        Console.Write("Enter the city: ");
+                        string city = Console.ReadLine();
+                        Console.Write("Enter the state: ");
+                        string state = Console.ReadLine();
+                        Console.Write("Enter the zip: ");
+                        string zip = Console.ReadLine();
+                        Console.Write("Enter the phone number: ");
+                        string phoneNumber = Console.ReadLine();
+                        Console.Write("Enter the email address: ");
+                        string emailAddress = Console.ReadLine();
 
-            Console.WriteLine($"Contacts in {addressBookName}:");
-            foreach (Contact contact in addressBooks[addressBookName])
-            {
-                Console.WriteLine("Name: {0} {1}", contact.getFirstName(), contact.getLastName());
-                Console.WriteLine("Address: {0}", contact.getAddress());
-                Console.WriteLine("City: {0}", contact.getCity());
-                Console.WriteLine("State: {0}", contact.getState());
-                Console.WriteLine("Zip: {0}", contact.getZip());
-                Console.WriteLine("Phone Number: {0}", contact.getPhoneNumber());
-                Console.WriteLine("Email: {0}", contact.getEmail());
+                        addressBookSystem.AddContact(firstName, lastName, address, city, state, zip, phoneNumber, emailAddress);
+                        break;
+                    case "4":
+                        Console.Write("Enter the first name of the contact to edit: ");
+                        firstName = Console.ReadLine();
+                        Console.Write("Enter the last name of the contact to edit: ");
+                        lastName = Console.ReadLine();
+
+                        addressBookSystem.EditContact(firstName, lastName);
+                        break;
+                    case "5":
+                        Console.Write("Enter the first name of the contact to delete: ");
+                        firstName = Console.ReadLine();
+                        Console.Write("Enter the last name of the contact to delete: ");
+                        lastName = Console.ReadLine();
+
+                        addressBookSystem.DeleteContact(firstName, lastName);
+                        break;
+                    case "6":
+                        addressBookSystem.DisplayAllContacts();
+                        break;
+                    case "0":
+                        Console.WriteLine("Exiting the program...");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+
                 Console.WriteLine();
             }
         }
-
-        // Method to edit a contact's details in an address book
-        public bool EditContact(string addressBookName, string firstName, string lastName)
-        {
-            // If the address book doesn't exist, display an error message
-            if (!addressBooks.ContainsKey(addressBookName))
-            {
-                Console.WriteLine("Address book not found.");
-                return false;
-            }
-
-            // Find the contact to edit
-            Contact contact = FindContact(addressBookName, firstName, lastName);
-            if (contact != null)
-            {
-                // Prompt the user to enter the new contact details
-                //And update the details
-                Console.WriteLine("Enter new details for the contact:");
-
-                Console.Write("Enter First Name: ");
-                string newFirstName = Console.ReadLine();
-                contact .setFirstName(newFirstName);
-
-                Console.Write("Enter Last Name: ");
-                string newLastName = Console.ReadLine();
-                contact .setLastName(newLastName);
-
-                Console.Write("Enter Address: ");
-                string newAddress = Console.ReadLine();
-                contact .setAddress(newAddress);
-
-                Console.Write("Enter City: ");
-                string newCity = Console.ReadLine();
-                contact .setCity(newCity);
-
-                Console.Write("Enter State: ");
-                string newState = Console.ReadLine();
-                contact .setState(newState);
-
-                Console.Write("Enter Zip: ");
-                string newZip = Console.ReadLine();
-                contact .setZip(newZip);
-
-                Console.Write("Enter Phone Number: ");
-                string newPhoneNumber = Console.ReadLine();
-                contact .setPhoneNumber(newPhoneNumber);
-
-                Console.Write("Enter Email: ");
-                string newEmail = Console.ReadLine();
-                contact .setEmail(newEmail);
-                Console.WriteLine("Contact updated successfully.");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Contact not found.");
-                return false;
-            }
-        }
-
-        // find a contact in an address book
-        private Contact FindContact(string addressBookName, string firstName, string lastName)
-        {
-            if (addressBooks.ContainsKey(addressBookName))
-            {
-                List<Contact> contacts = addressBooks[addressBookName];
-                return contacts.Find(c => c.getFirstName() == firstName && c.getLastName() == lastName);
-            }
-
-            return null;
-        }
-        public static void Main(string[] args)
-        {
-            int option;
-            do
-            {
-                AddressBookSystem addressBookSystem = new AddressBookSystem();
-                Contact contact = new Contact();
-                Console.WriteLine("Choose your option :");
-                Console.WriteLine("1.Add Contact");
-                Console.WriteLine("2.Display all Contact.");
-                Console.WriteLine("3.Edit Contact.");
-                //Console.WriteLine("4.Delete Contact.");
-                option = Convert.ToInt32(Console.ReadLine());
-
-                switch (option)
-                {
-                    case 1:
-                        Console.WriteLine("Enter Address Book Name");
-                        string addressBookName= Console.ReadLine();
-                        addressBookSystem .AddContact(addressBookName, contact);
-                        break;
-                    case 2:
-                        Console.WriteLine("Enter which AddressBook you want to display");
-                        string addressBook= Console.ReadLine();
-                        addressBookSystem.DisplayContacts(addressBook);
-                        break;
-                    case 3:
-                        Console.WriteLine("Enter your first name");
-                        string firstName= Console.ReadLine();
-                        Console.WriteLine("Enter your last name");
-                        string lastName= Console.ReadLine();
-                        Console.WriteLine("Enter which AddressBook you want to display");
-                        string addressBookE = Console.ReadLine();
-                        addressBookSystem.EditContact (addressBookE,firstName ,lastName);
-                        break;
-
-                    default:
-                        Console.WriteLine("Enter valid option :");
-                        break;
-                }
-                Console.WriteLine("Do you want to continue (1.Continue 0.Exit)");
-                option = Convert.ToInt32(Console.ReadLine());
-            } while (option != 0);
-
-            Console.ReadKey();
-        }
     }
-    
+
 }
