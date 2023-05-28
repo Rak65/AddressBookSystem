@@ -144,5 +144,16 @@ namespace AddressBookSystem
         {
             return contacts.Find(c => c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) && c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
         }
+        public Dictionary<string, int> GetCountByCity()
+        {
+            return contacts.GroupBy(c => c.City, StringComparer.OrdinalIgnoreCase)
+                           .ToDictionary(g => g.Key, g => g.Count());
+        }
+
+        public Dictionary<string, int> GetCountByState()
+        {
+            return contacts.GroupBy(c => c.State, StringComparer.OrdinalIgnoreCase)
+                           .ToDictionary(g => g.Key, g => g.Count());
+        }
     }
 }
