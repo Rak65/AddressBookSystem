@@ -10,11 +10,14 @@ namespace AddressBookSystem
     {
         private Dictionary<string, AddressBook> addressBooks;
         private AddressBook selectedAddressBook;
+        private Dictionary<string, List<ContactPerson>> cityPersonDictionary;
+        private Dictionary<string, List<ContactPerson>> statePersonDictionary;
 
         public AddressBookSystem()
         {
             addressBooks = new Dictionary<string, AddressBook>();
-            selectedAddressBook = null;
+            cityPersonDictionary = new Dictionary<string, List<ContactPerson>>();
+            statePersonDictionary = new Dictionary<string, List<ContactPerson>>();
         }
 
         public void CreateAddressBook(string addressBookName)
@@ -50,6 +53,20 @@ namespace AddressBookSystem
             {
                 ContactPerson contact = new ContactPerson(firstName, lastName, address, city, state, zip, phoneNumber, emailAddress);
                 selectedAddressBook.AddContact(contact);
+
+                // Add the person to city-person dictionary
+                if (!cityPersonDictionary.ContainsKey(city))
+                {
+                    cityPersonDictionary.Add(city, new List<ContactPerson>());
+                }
+                cityPersonDictionary[city].Add(contact);
+
+                // Add the person to state-person dictionary
+                if (!statePersonDictionary.ContainsKey(state))
+                {
+                    statePersonDictionary.Add(state, new List<ContactPerson>());
+                }
+                statePersonDictionary[state].Add(contact);
             }
             else
             {
@@ -95,39 +112,60 @@ namespace AddressBookSystem
 
         public void SearchPersonByCity(string city)
         {
-            List<ContactPerson> searchResults = addressBooks.Values.SelectMany(addressBook => addressBook.SearchByCity(city)).ToList();
-
-            if (searchResults.Count > 0)
+            if (selectedAddressBook != null)
             {
-                Console.WriteLine($"Search results for city '{city}':");
-                foreach (ContactPerson contact in searchResults)
-                {
-                    Console.WriteLine(contact);
-                }
+                selectedAddressBook.SearchByCity(city);
             }
             else
             {
-                Console.WriteLine($"No contacts found in the city '{city}'.");
+                Console.WriteLine("No address book selected. Please select an address book first.");
             }
         }
 
         public void SearchPersonByState(string state)
         {
-            List<ContactPerson> searchResults = addressBooks.Values.SelectMany(addressBook => addressBook.SearchByState(state)).ToList();
-
-            if (searchResults.Count > 0)
+            if (selectedAddressBook != null)
             {
-                Console.WriteLine($"Search results for state '{state}':");
-                foreach (ContactPerson contact in searchResults)
+                selectedAddressBook.SearchByState(state);
+            }
+            else
+            {
+                Console.WriteLine("No address book selected. Please select an address book first.");
+            }
+        }
+
+        public void ViewPersonsByCity(string city)
+        {
+            if (cityPersonDictionary.ContainsKey(city))
+            {
+                List<ContactPerson> persons = cityPersonDictionary[city];
+                Console.WriteLine($"Persons in the city of {city}:");
+                foreach (ContactPerson person in persons)
                 {
-                    Console.WriteLine(contact);
+                    Console.WriteLine(person);
                 }
             }
             else
             {
-                Console.WriteLine($"No contacts found in the state '{state}'.");
+                Console.WriteLine($"No persons found in the city of {city}.");
+            }
+        }
+
+        public void ViewPersonsByState(string state)
+        {
+            if (statePersonDictionary.ContainsKey(state))
+            {
+                List<ContactPerson> persons = statePersonDictionary[state];
+                Console.WriteLine($"Persons in the state of {state}:");
+                foreach (ContactPerson person in persons)
+                {
+                    Console.WriteLine(person);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No persons found in the state of {state}.");
             }
         }
     }
-
 }

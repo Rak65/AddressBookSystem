@@ -24,7 +24,7 @@ namespace AddressBookSystem
             }
             else
             {
-                Console.WriteLine("Duplicate entry. Contact already exists in the address book.");
+                Console.WriteLine("Duplicate contact. Contact not added.");
             }
         }
 
@@ -33,6 +33,10 @@ namespace AddressBookSystem
             ContactPerson contact = FindContact(firstName, lastName);
             if (contact != null)
             {
+                Console.WriteLine($"Current details of {firstName} {lastName}:");
+                Console.WriteLine(contact);
+
+                Console.WriteLine("Enter the new details:");
                 Console.Write("Enter the new first name: ");
                 string newFirstName = Console.ReadLine();
                 Console.Write("Enter the new last name: ");
@@ -85,7 +89,7 @@ namespace AddressBookSystem
         {
             if (contacts.Count > 0)
             {
-                Console.WriteLine("Contacts in the address book:");
+                Console.WriteLine("Contacts:");
                 foreach (ContactPerson contact in contacts)
                 {
                     Console.WriteLine(contact);
@@ -93,32 +97,52 @@ namespace AddressBookSystem
             }
             else
             {
-                Console.WriteLine("No contacts found in the address book.");
+                Console.WriteLine("No contacts found.");
+            }
+        }
+
+        public void SearchByCity(string city)
+        {
+            List<ContactPerson> searchResults = contacts.FindAll(c => c.City.Equals(city, StringComparison.OrdinalIgnoreCase));
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine($"Search results in {city}:");
+                foreach (ContactPerson contact in searchResults)
+                {
+                    Console.WriteLine(contact);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in {city}.");
+            }
+        }
+
+        public void SearchByState(string state)
+        {
+            List<ContactPerson> searchResults = contacts.FindAll(c => c.State.Equals(state, StringComparison.OrdinalIgnoreCase));
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine($"Search results in {state}:");
+                foreach (ContactPerson contact in searchResults)
+                {
+                    Console.WriteLine(contact);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in {state}.");
             }
         }
 
         private bool IsDuplicateContact(ContactPerson contact)
         {
-            return contacts.Any(existingContact =>
-                existingContact.FirstName.Equals(contact.FirstName, StringComparison.OrdinalIgnoreCase) &&
-                existingContact.LastName.Equals(contact.LastName, StringComparison.OrdinalIgnoreCase));
+            return contacts.Exists(c => c.Equals(contact));
         }
 
         private ContactPerson FindContact(string firstName, string lastName)
         {
-            return contacts.Find(contact =>
-                contact.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
-                contact.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public List<ContactPerson> SearchByCity(string city)
-        {
-            return contacts.FindAll(contact => contact.City.Equals(city, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public List<ContactPerson> SearchByState(string state)
-        {
-            return contacts.FindAll(contact => contact.State.Equals(state, StringComparison.OrdinalIgnoreCase));
+            return contacts.Find(c => c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) && c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
