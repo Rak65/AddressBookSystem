@@ -21,13 +21,13 @@ namespace AddressBookSystem
         {
             if (!addressBooks.ContainsKey(addressBookName))
             {
-                AddressBook newAddressBook = new AddressBook();
-                addressBooks.Add(addressBookName, newAddressBook);
-                Console.WriteLine("Address book created successfully!");
+                AddressBook addressBook = new AddressBook();
+                addressBooks.Add(addressBookName, addressBook);
+                Console.WriteLine($"Address book '{addressBookName}' created successfully!");
             }
             else
             {
-                Console.WriteLine("Address book with the same name already exists. Please try again with a different name.");
+                Console.WriteLine("Address book with the same name already exists. Please choose a different name.");
             }
         }
 
@@ -36,7 +36,7 @@ namespace AddressBookSystem
             if (addressBooks.ContainsKey(addressBookName))
             {
                 selectedAddressBook = addressBooks[addressBookName];
-                Console.WriteLine($"Selected address book: {addressBookName}");
+                Console.WriteLine($"Address book '{addressBookName}' selected.");
             }
             else
             {
@@ -92,5 +92,42 @@ namespace AddressBookSystem
                 Console.WriteLine("No address book selected. Please select an address book first.");
             }
         }
+
+        public void SearchPersonByCity(string city)
+        {
+            List<ContactPerson> searchResults = addressBooks.Values.SelectMany(addressBook => addressBook.SearchByCity(city)).ToList();
+
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine($"Search results for city '{city}':");
+                foreach (ContactPerson contact in searchResults)
+                {
+                    Console.WriteLine(contact);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in the city '{city}'.");
+            }
+        }
+
+        public void SearchPersonByState(string state)
+        {
+            List<ContactPerson> searchResults = addressBooks.Values.SelectMany(addressBook => addressBook.SearchByState(state)).ToList();
+
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine($"Search results for state '{state}':");
+                foreach (ContactPerson contact in searchResults)
+                {
+                    Console.WriteLine(contact);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No contacts found in the state '{state}'.");
+            }
+        }
     }
+
 }

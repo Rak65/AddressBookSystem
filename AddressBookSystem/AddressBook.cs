@@ -50,7 +50,6 @@ namespace AddressBookSystem
                 Console.Write("Enter the new email address: ");
                 string newEmailAddress = Console.ReadLine();
 
-                // Update the contact details
                 contact.FirstName = newFirstName;
                 contact.LastName = newLastName;
                 contact.Address = newAddress;
@@ -84,9 +83,9 @@ namespace AddressBookSystem
 
         public void DisplayContacts()
         {
-            Console.WriteLine("Address Book Contacts:");
             if (contacts.Count > 0)
             {
+                Console.WriteLine("Contacts in the address book:");
                 foreach (ContactPerson contact in contacts)
                 {
                     Console.WriteLine(contact);
@@ -110,6 +109,16 @@ namespace AddressBookSystem
             return contacts.Find(contact =>
                 contact.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
                 contact.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public List<ContactPerson> SearchByCity(string city)
+        {
+            return contacts.FindAll(contact => contact.City.Equals(city, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public List<ContactPerson> SearchByState(string state)
+        {
+            return contacts.FindAll(contact => contact.State.Equals(state, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

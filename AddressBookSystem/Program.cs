@@ -24,6 +24,8 @@ namespace AddressBookSystem
                 Console.WriteLine("4. Edit Contact");
                 Console.WriteLine("5. Delete Contact");
                 Console.WriteLine("6. Display Contacts");
+                Console.WriteLine("7. Search Person in City");
+                Console.WriteLine("8. Search Person in State");
                 Console.WriteLine("0. Exit");
 
                 Console.Write("Enter your choice: ");
@@ -80,6 +82,16 @@ namespace AddressBookSystem
                     case "6":
                         addressBookSystem.DisplayAllContacts();
                         break;
+                    case "7":
+                        Console.Write("Enter the city to search for: ");
+                        string searchCity = Console.ReadLine();
+                        addressBookSystem.SearchPersonByCity(searchCity);
+                        break;
+                    case "8":
+                        Console.Write("Enter the state to search for: ");
+                        string searchState = Console.ReadLine();
+                        addressBookSystem.SearchPersonByState(searchState);
+                        break;
                     case "0":
                         Console.WriteLine("Exiting the program...");
                         return;
@@ -92,5 +104,4 @@ namespace AddressBookSystem
             }
         }
     }
-
 }
