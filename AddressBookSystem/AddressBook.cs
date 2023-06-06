@@ -46,5 +46,39 @@ namespace AddressBookSystem
                 Console.WriteLine(contact.ToString());
             }
         }
+        public void SortEntriesByCity()
+        {
+            contacts.Sort((p1, p2) => string.Compare(p1.City, p2.City));
+
+            Console.WriteLine("Sorted entries by city:");
+
+            foreach (var contact in contacts)
+            {
+                Console.WriteLine(contact.ToString());
+            }
+        }
+        public void SortEntriesByState()
+        {
+            contacts.Sort((p1, p2) => string.Compare(p1.State, p2.State));
+
+            Console.WriteLine("Sorted entries by state:");
+
+            foreach (var contact in contacts)
+            {
+                Console.WriteLine(contact.ToString());
+            }
+        }
+
+        public void SortEntriesByZip()
+        {
+            contacts.Sort((p1, p2) => string.Compare(p1.Zip, p2.Zip));
+
+            Console.WriteLine("Sorted entries by zip code:");
+
+            foreach (var contact in contacts)
+            {
+                Console.WriteLine(contact.ToString());
+            }
+        }
     }
 }

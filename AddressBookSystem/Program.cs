@@ -176,6 +176,53 @@ namespace AddressBookSystem
                 Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
             }
         }
+        static void SortEntriesByCity(Dictionary<string, AddressBook> addressBooks)
+        {
+            Console.WriteLine("Enter the address book name to sort entries by city:");
+            string name = Console.ReadLine();
+
+            if (addressBooks.ContainsKey(name))
+            {
+                Console.WriteLine($"Sorting entries in Address Book '{name}' by city:");
+                addressBooks[name].SortEntriesByCity();
+            }
+            else
+            {
+                Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
+            }
+        }
+
+        static void SortEntriesByState(Dictionary<string, AddressBook> addressBooks)
+        {
+            Console.WriteLine("Enter the address book name to sort entries by state:");
+            string name = Console.ReadLine();
+
+            if (addressBooks.ContainsKey(name))
+            {
+                Console.WriteLine($"Sorting entries in Address Book '{name}' by state:");
+                addressBooks[name].SortEntriesByState();
+            }
+            else
+            {
+                Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
+            }
+        }
+
+        static void SortEntriesByZip(Dictionary<string, AddressBook> addressBooks)
+        {
+            Console.WriteLine("Enter the address book name to sort entries by zip code:");
+            string name = Console.ReadLine();
+
+            if (addressBooks.ContainsKey(name))
+            {
+                Console.WriteLine($"Sorting entries in Address Book '{name}' by zip code:");
+                addressBooks[name].SortEntriesByZip();
+            }
+            else
+            {
+                Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
+            }
+        }
     }
 
 }
