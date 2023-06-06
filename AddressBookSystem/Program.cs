@@ -223,6 +223,41 @@ namespace AddressBookSystem
                 Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
             }
         }
+        static void SaveAddressBookToFile(Dictionary<string, AddressBook> addressBooks)
+        {
+            Console.WriteLine("Enter the address book name to save to file:");
+            string name = Console.ReadLine();
+
+            if (addressBooks.ContainsKey(name))
+            {
+                Console.WriteLine("Enter the file name to save the address book:");
+                string fileName = Console.ReadLine();
+
+                addressBooks[name].SaveToFile(fileName);
+            }
+            else
+            {
+                Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
+            }
+        }
+
+        static void LoadAddressBookFromFile(Dictionary<string, AddressBook> addressBooks)
+        {
+            Console.WriteLine("Enter the address book name to load from file:");
+            string name = Console.ReadLine();
+
+            if (addressBooks.ContainsKey(name))
+            {
+                Console.WriteLine("Enter the file name to load the address book:");
+                string fileName = Console.ReadLine();
+
+                addressBooks[name].LoadFromFile(fileName);
+            }
+            else
+            {
+                Console.WriteLine("Address book not found. Please create a new address book or select an existing one.");
+            }
+        }
     }
 
 }
