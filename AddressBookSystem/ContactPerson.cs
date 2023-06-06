@@ -15,42 +15,19 @@ namespace AddressBookSystem
         public string State { get; set; }
         public string Zip { get; set; }
         public string PhoneNumber { get; set; }
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
-        public ContactPerson(string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber, string emailAddress)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            City = city;
-            State = state;
-            Zip = zip;
-            PhoneNumber = phoneNumber;
-            EmailAddress = emailAddress;
-        }
+        public string FullName => $"{FirstName} {LastName}";
 
         public override string ToString()
         {
-            return $"Name: {FirstName} {LastName}, Address: {Address}, City: {City}, State: {State}, Zip: {Zip}, Phone: {PhoneNumber}, Email: {EmailAddress}";
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            ContactPerson other = (ContactPerson)obj;
-            return FirstName.Equals(other.FirstName, StringComparison.OrdinalIgnoreCase) && LastName.Equals(other.LastName, StringComparison.OrdinalIgnoreCase);
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 17;
-            hash = hash * 23 + (FirstName?.ToLower().GetHashCode() ?? 0);
-            hash = hash * 23 + (LastName?.ToLower().GetHashCode() ?? 0);
-            return hash;
+            return $"Name: {FullName}\n" +
+                   $"Address: {Address}\n" +
+                   $"City: {City}\n" +
+                   $"State: {State}\n" +
+                   $"Zip Code: {Zip}\n" +
+                   $"Phone number: {PhoneNumber}\n" +
+                   $"Email address: {Email}\n";
         }
     }
 }
