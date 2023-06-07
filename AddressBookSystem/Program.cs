@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -27,7 +28,9 @@ namespace AddressBookSystem
                 Console.WriteLine("3. Add a contact");
                 Console.WriteLine("4. View all contacts");
                 Console.WriteLine("5. Sort entries by name");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Save AddressBook to File.");
+                Console.WriteLine("7. Load AddressBook to File.");
+                Console.WriteLine("8. Exit");
 
                 string input = Console.ReadLine();
 
@@ -49,6 +52,12 @@ namespace AddressBookSystem
                         SortEntriesByName(addressBooks);
                         break;
                     case "6":
+                        SaveAddressBookToFile(addressBooks); 
+                        break;
+                    case "7":
+                        LoadAddressBookFromFile(addressBooks);
+                        break;
+                    case "8":
                         isRunning = false;
                         break;
                     default:
@@ -225,13 +234,13 @@ namespace AddressBookSystem
         }
         static void SaveAddressBookToFile(Dictionary<string, AddressBook> addressBooks)
         {
+
             Console.WriteLine("Enter the address book name to save to file:");
             string name = Console.ReadLine();
 
             if (addressBooks.ContainsKey(name))
             {
-                Console.WriteLine("Enter the file name to save the address book:");
-                string fileName = Console.ReadLine();
+                string fileName = @"H:\C# Project\AddressBookSystem\AddressBookSystem\\FileData.txt";
 
                 addressBooks[name].SaveToFile(fileName);
             }
@@ -248,9 +257,7 @@ namespace AddressBookSystem
 
             if (addressBooks.ContainsKey(name))
             {
-                Console.WriteLine("Enter the file name to load the address book:");
-                string fileName = Console.ReadLine();
-
+                string fileName = @"H:\C# Project\AddressBookSystem\AddressBookSystem\\FileData.txt";
                 addressBooks[name].LoadFromFile(fileName);
             }
             else
